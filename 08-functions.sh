@@ -2,12 +2,12 @@
 
 USERID=$(id -u)
 
-if [ $USERID -ne 0 ]
- then
-    echo "ERROR:: Please run this script with root user"
+if [ $USERID -ne 0]
+then
+    echo "ERROR:: You are not logged in as root user"
     exit 1
 else
-    echo "You are running with root access"
+    echo "You are logged in as root user"
 fi
 
 VALIDATE(){
@@ -15,40 +15,40 @@ VALIDATE(){
     then
         echo "Installing $2 is ... SUCCESS"
     else
-        echo "Installing $2 is ... FAILURE"
+        echo "Installing $2 is ... FAILED"
         exit 1
     fi
 }
 
 dnf list installed mysql
 
-if [ $? -ne 0 ]
+if [$? -ne 0 ]
 then
-    echo "MYSQL is not installed... going to install it"
+    echo "MYSQL is not installed.. going to install"
     dnf install mysql -y
     VALIDATE $? "MYSQL"
 else
-    echo "MYSQL is already installed... nothing to do"
+    echo "MYSQL is already installed.. Nothing to do"
 fi
 
 dnf list installed python3
 
-if [ $? -ne 0 ]
+if [$? -ne 0 ]
 then
-    echo "python3 is not installed... going to install it"
+    echo "python3 is not installed.. going to install"
     dnf install python3 -y
     VALIDATE $? "python3"
 else
-    echo "python3 is already installed... nothing to do"
+    echo "python3 is already installed.. Nothing to do"
 fi
 
 dnf list installed nginx
 
-if [ $? -ne 0 ]
+if [$? -ne 0 ]
 then
-    echo "nginx is not installed... going to install it"
+    echo "nginx is not installed.. going to install"
     dnf install nginx -y
     VALIDATE $? "nginx"
 else
-    echo "nginx is already installed... nothing to do"
+    echo "nginx is already installed.. Nothing to do"
 fi
